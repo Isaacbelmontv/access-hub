@@ -1,0 +1,23 @@
+<input [(ngModel)]="filter" placeholder="Filtrar..." />
+<p-table [value]="filtered()" selectionMode="multiple" [(selection)]="selection">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Nombre</th>
+      <th>Email</th>
+      <th>Teléfono</th>
+      <th>Fav</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-u>
+    <tr>
+      <td>{{ u.name }}</td>
+      <td>{{ u.email }}</td>
+      <td>{{ u.phone | phoneMask }}</td>
+      <td>
+        <button (click)="toggleFav(u.id)">
+          {{ isFav(u.id) ? '★' : '☆' }}
+        </button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

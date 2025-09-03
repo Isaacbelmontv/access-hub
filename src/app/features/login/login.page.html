@@ -1,0 +1,36 @@
+<p-card header="Iniciar Sesión" styleClass="w-full md:w-30rem mx-auto mt-8 shadow-3">
+  <form (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+    <span class="p-input-icon-left">
+      <i class="pi pi-user"></i>
+      <input
+        pInputText
+        [(ngModel)]="username"
+        name="username"
+        placeholder="Usuario"
+        required
+        class="w-full"
+      />
+    </span>
+
+    <span class="p-input-icon-left">
+      <i class="pi pi-lock"></i>
+      <input
+        pPassword
+        [(ngModel)]="password"
+        name="password"
+        placeholder="Contraseña"
+        required
+        toggleMask="true"
+        feedback="false"
+        class="w-full"
+      />
+    </span>
+
+    <button pButton type="submit" label="Entrar" icon="pi pi-sign-in"></button>
+
+    <p *ngIf="error()" class="text-red-600 text-center">
+      <i class="pi pi-exclamation-triangle mr-2"></i>
+      Credenciales inválidas
+    </p>
+  </form>
+</p-card>
