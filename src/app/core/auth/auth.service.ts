@@ -1,42 +1,53 @@
 import { Injectable, signal } from '@angular/core';
-import { AuthUser, Role } from '../models';
-import { StorageService } from '../storage/storage.service';
+import { AuthUser, Role } from '@core/models';
+import { StorageService } from '@core/storage/storage.service';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private readonly user = signal<AuthUser | null>(null);
+  private _user = signal<AuthUser | null>(null);
+  private initialized = signal(false);
+  isInitialized = this.initialized.asReadonly();
 
-  constructor(private storage: StorageService) {
-    this.user.set(this.load());
+  constructor(private storageService: StorageService) {
+    this.restore();
   }
 
-  private load(): AuthUser | null {
-    const raw = this.storage.get('auth_user', []);
-    if (!raw) return null;
-    try {
-      return JSON.parse(raw) as AuthUser;
-    } catch {
-      return null;
-    }
+  login(user: AuthUser) {
+    this._user.set(user);
+    this.storageService.set('auth_user', JSON.stringify(user));
   }
 
-  private save(u: AuthUser | null): void {
-    if (u) this.storage.set('auth_user', JSON.stringify(u));
-    else this.storage.remove('auth_user');
-    this.user.set(u);
+  user() {
+    return this._user();
   }
 
-  login = (u: AuthUser) => this.save(u);
+  logout() {
+    this._user.set(null);
+    this.storageService.remove('auth_user');
+  }
 
-  logout = () => this.save(null);
+  getUser(): AuthUser | null {
+    return this._user();
+  }
 
-  getUser = (): AuthUser | null => this.user();
-
-  getUserName = (): string | undefined => this.user()?.username;
-
-  isLoggedIn = (): boolean => !!this.user();
+  isLoggedIn(): boolean {
+    return !!this._user();
+  }
 
   hasRole = (roles: Role[]): boolean => {
-    const u = this.user();
+    const u = this._user();
     return !!u && roles.includes(u.role);
   };
+
+  private restore() {
+    const raw = this.storageService.get('auth_user');
+    if (raw) {
+      this._user.set(JSON.parse(raw));
+    } else {
+      this.initialized.set(true);
+    }
+
+    setTimeout(() => {
+      this.initialized.set(true);
+    }, 2000);
+  }
 }

@@ -5,20 +5,18 @@ import { Badge } from 'primeng/badge';
 import { Button, ButtonModule } from 'primeng/button';
 import { Menu } from 'primeng/menu';
 import { AuthService } from './core/auth/auth.service';
-import { AuthUser, Role } from './core/models';
+import { SplashscreenComponent } from './features/splash/splashscreen.component';
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Button, Menu, ButtonModule, Badge],
+  imports: [RouterOutlet, Button, Menu, ButtonModule, Badge, SplashscreenComponent],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
 export class App {
   protected readonly title = signal('access-hub');
   items: MenuItem[] | undefined;
-  user: AuthUser | null = null;
-  Role: Role | undefined = undefined;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(protected authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.items = [
@@ -33,8 +31,6 @@ export class App {
         ],
       },
     ];
-
-    this.user = this.authService.getUser();
   }
 
   logout() {

@@ -4,18 +4,18 @@ import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { Card } from 'primeng/card';
 import { DialogModule } from 'primeng/dialog';
+import { FloatLabelModule } from 'primeng/floatlabel';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
-import { ApiService } from '../../core/api/api.service';
-import { User } from '../../core/models';
-import { StorageService } from '../../core/storage/storage.service';
-import { PhoneMaskPipe } from '../../shared/pipes/phone-mask-pipe';
+import { ApiService } from '@core/api/api.service';
+import { AuthService } from '@core/auth/auth.service';
+import { User } from '@core/models';
+import { StorageService } from '@core/storage/storage.service';
+import { PhoneMaskPipe } from '@shared/pipes/phone-mask-pipe';
 import { UserDialogComponent } from './components/user-dialog.component';
-import { FloatLabelModule } from 'primeng/floatlabel';
-import { AuthService } from '../../core/auth/auth.service';
 @Component({
   selector: 'app-users',
   imports: [
@@ -43,7 +43,7 @@ export class UsersPage {
   isLoading = signal(false);
   users = signal<User[]>([]);
   filter = '';
-  favs = signal<number[]>(JSON.parse(this.storage.get('favs', []) || '[]'));
+  favs = signal<number[]>(JSON.parse(this.storage.get('favs') || '[]'));
   selectedUser = signal<User | null>(null);
   showDialog = signal(false);
   editableUser = signal(true);
@@ -66,7 +66,7 @@ export class UsersPage {
     this.isLoading.set(true);
     this.api.getUsers().subscribe({
       next: (data: User[]) => {
-        const localRaw = this.storage.get('local_users', []);
+        const localRaw = this.storage.get('local_users');
         const local = localRaw ? JSON.parse(localRaw) : [];
         this.users.set([...data, ...local]);
       },
@@ -89,7 +89,7 @@ export class UsersPage {
     } else {
       this.users.set([...this.users(), user]);
 
-      const localRaw = this.storage.get('local_users', []);
+      const localRaw = this.storage.get('local_users');
       const local = localRaw ? JSON.parse(localRaw) : [];
       local.push(user);
       this.storage.set('local_users', JSON.stringify(local));
@@ -106,7 +106,7 @@ export class UsersPage {
   deleteUser(user: User) {
     this.users.set(this.users().filter((u) => u.id !== user.id));
 
-    const localRaw = this.storage.get('local_users', []);
+    const localRaw = this.storage.get('local_users');
     const local = localRaw ? JSON.parse(localRaw) : [];
 
     const updatedLocal = local.filter((u: User) => u.id !== user.id);
