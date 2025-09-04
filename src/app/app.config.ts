@@ -5,10 +5,11 @@ import {
   provideZonelessChangeDetection,
 } from '@angular/core';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { provideTranslateService } from '@ngx-translate/core';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
-import Aura from '@primeuix/themes/aura';
+import Nora from '@primeng/themes/nora';
 import { providePrimeNG } from 'primeng/config';
 import { routes } from './app.routes';
 
@@ -17,10 +18,14 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideRouter(routes),
+    provideNoopAnimations(), // TODO: replace with provideAnimations()
     provideClientHydration(withEventReplay()),
     providePrimeNG({
       theme: {
-        preset: Aura,
+        preset: Nora,
+        options: {
+          darkModeSelector: false,
+        },
       },
     }),
     provideHttpClient(withFetch()),

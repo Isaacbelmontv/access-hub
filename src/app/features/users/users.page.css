@@ -1,0 +1,16 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-weight: bold;
+}
+
+.users-table {
+  padding-top: var(--space-8);
+}
+
+.filter {
+  width: 100%;
+  max-width: 400px;
+}
