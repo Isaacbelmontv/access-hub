@@ -3,16 +3,25 @@ import { HttpClient } from '@angular/common/http';
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '@core/auth/auth.service';
+import { AuthUser } from '@core/models';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
-import { AuthService } from '@core/auth/auth.service';
-import { AuthUser } from '@core/models';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, CommonModule, CardModule, InputTextModule, PasswordModule, ButtonModule],
+  imports: [
+    FormsModule,
+    CommonModule,
+    CardModule,
+    InputTextModule,
+    PasswordModule,
+    ButtonModule,
+    TranslateModule,
+  ],
   templateUrl: './login.page.html',
   styleUrl: './login.page.css',
 })
@@ -23,7 +32,13 @@ export class LoginPage {
   username = '';
   password = '';
   error = signal(false);
+  translate = inject(TranslateService);
+  langs = [
+    { code: 'es', label: 'Español', flag: '🇲🇽' },
+    { code: 'en', label: 'English', flag: '🇺🇸' },
+  ];
 
+  currentLang = this.translate.currentLang || this.translate.getDefaultLang() || 'es';
   onSubmit() {
     this.http.get<AuthUser[]>('/users.json').subscribe((users) => {
       const u = users.find(
@@ -34,5 +49,9 @@ export class LoginPage {
         this.router.navigateByUrl('/users');
       } else this.error.set(true);
     });
+  }
+
+  switchLang(lang: string) {
+    this.translate.use(lang);
   }
 }

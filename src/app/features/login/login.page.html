@@ -1,35 +1,45 @@
 <div class="flex justify-content-center align-items-center min-h-screen surface-ground p-4">
-  <p-card styleClass="w-full sm:w-20rem md:w-25rem lg:w-30rem shadow-3">
+  <p-card class="w-full sm:w-20rem md:w-25rem lg:w-30rem shadow-3">
+    <div class="flex justify-content-end mb-2">
+      <select
+        [ngModel]="currentLang"
+        (ngModelChange)="switchLang($event)"
+        class="p-2 border-round border-1 surface-border text-sm"
+      >
+        @for (l of langs; track l.code) {
+        <option [ngValue]="l.code">{{ l.flag }} {{ l.label }}</option>
+        }
+      </select>
+    </div>
+
     <div class="flex flex-column align-items-center mb-3">
       <div
         class="flex align-items-center justify-content-center bg-primary border-circle w-5rem h-5rem mb-3 shadow-2"
       >
         <i class="pi pi-user text-3xl text-white"></i>
       </div>
-      <h2 class="m-0 text-xl font-semibold">Iniciar Sesión</h2>
+      <h2 class="m-0 text-xl font-semibold">{{ 'LOGIN.TITLE' | translate }}</h2>
     </div>
 
     <form (ngSubmit)="onSubmit()" class="flex flex-column gap-4 mt-3">
-      <!-- Usuario -->
       <span class="p-input-icon-left w-full">
         <i class="pi pi-user"></i>
         <input
           pInputText
           [(ngModel)]="username"
           name="username"
-          placeholder="Usuario"
+          [placeholder]="'LOGIN.USER' | translate"
           required
           class="w-full"
         />
       </span>
 
-      <!-- Contraseña -->
       <span class="p-input-icon-left w-full">
         <i class="pi pi-lock"></i>
         <p-password
           [(ngModel)]="password"
           name="password"
-          placeholder="Contraseña"
+          [placeholder]="'LOGIN.PASSWORD' | translate"
           required
           toggleMask="true"
           feedback="false"
@@ -38,19 +48,21 @@
         ></p-password>
       </span>
 
-      <!-- Error -->
       @if(error()){
       <p
         class="text-center text-red-500 font-medium flex align-items-center justify-content-center gap-2"
       >
         <i class="pi pi-exclamation-triangle"></i>
-        Credenciales inválidas
+        {{ 'LOGIN.CREDENTIALS' | translate }}
       </p>
       }
 
-      <!-- Botón -->
       <div class="flex justify-content-end">
-        <p-button type="submit" label="Entrar" icon="pi pi-sign-in"></p-button>
+        <p-button
+          type="submit"
+          [label]="'LOGIN.ENTER_BUTTON' | translate"
+          icon="pi pi-sign-in"
+        ></p-button>
       </div>
     </form>
   </p-card>

@@ -31,7 +31,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch()),
     provideTranslateService({
       lang: 'es',
-      fallbackLang: 'es',
+      fallbackLang: 'en',
       loader: provideTranslateHttpLoader({
         prefix: '/i18n/',
         suffix: '.json',
