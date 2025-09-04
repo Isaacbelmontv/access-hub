@@ -1,3 +1,4 @@
+@if ( authService.isInitialized() ) {
 <div class="app">
   @if (hasLogin()) {
   <header class="app__header">
@@ -7,21 +8,22 @@
     </div>
 
     <div class="header__user">
-      <span class="header__username">{{ user?.username }} </span>
-
-      <p-badge class="ml-auto" severity="info" [value]="user?.role || ''" />
+      <span class="header__username">{{ authService.user()?.username }}</span>
+      <p-badge class="ml-auto" severity="info" [value]="authService.user()?.role || ''" />
 
       <div class="card flex justify-center">
         <p-menu #menu [model]="items" [popup]="true" />
-        <p-button icon="pi pi pi-user" [rounded]="true" (click)="menu.toggle($event)" />
+        <p-button icon="pi pi-user" [rounded]="true" (click)="menu.toggle($event)" />
       </div>
     </div>
   </header>
   }
-
   <main class="app__main">
     <div class="container">
-      <router-outlet></router-outlet>
+      <router-outlet />
     </div>
   </main>
 </div>
+}@else {
+<app-splashscreen />
+}

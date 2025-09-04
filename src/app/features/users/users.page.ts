@@ -43,7 +43,7 @@ export class UsersPage {
   isLoading = signal(false);
   users = signal<User[]>([]);
   filter = '';
-  favs = signal<number[]>(JSON.parse(this.storage.get('favs', []) || '[]'));
+  favs = signal<number[]>(JSON.parse(this.storage.get('favs') || '[]'));
   selectedUser = signal<User | null>(null);
   showDialog = signal(false);
   editableUser = signal(true);
@@ -66,7 +66,7 @@ export class UsersPage {
     this.isLoading.set(true);
     this.api.getUsers().subscribe({
       next: (data: User[]) => {
-        const localRaw = this.storage.get('local_users', []);
+        const localRaw = this.storage.get('local_users');
         const local = localRaw ? JSON.parse(localRaw) : [];
         this.users.set([...data, ...local]);
       },
@@ -89,7 +89,7 @@ export class UsersPage {
     } else {
       this.users.set([...this.users(), user]);
 
-      const localRaw = this.storage.get('local_users', []);
+      const localRaw = this.storage.get('local_users');
       const local = localRaw ? JSON.parse(localRaw) : [];
       local.push(user);
       this.storage.set('local_users', JSON.stringify(local));
@@ -106,7 +106,7 @@ export class UsersPage {
   deleteUser(user: User) {
     this.users.set(this.users().filter((u) => u.id !== user.id));
 
-    const localRaw = this.storage.get('local_users', []);
+    const localRaw = this.storage.get('local_users');
     const local = localRaw ? JSON.parse(localRaw) : [];
 
     const updatedLocal = local.filter((u: User) => u.id !== user.id);
