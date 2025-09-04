@@ -1,32 +1,40 @@
 <p-card>
   <ng-template pTemplate="title">
-    <div class="header">
-      <span class="text-xl font-bold">Gestión de Usuarios</span>
+    <div class="flex justify-content-between align-items-center w-full font-bold">
+      <span class="text-3xl">Gestión de Usuarios</span>
       <p-button
-        icon="pi pi-refresh"
-        [loading]="isLoading()"
-        rounded
+        label="Agregar Usuario"
+        icon="pi pi-plus"
+        (click)="showUserDialog()"
         raised
-        (click)="getUsers()"
       ></p-button>
     </div>
   </ng-template>
 
-  <div class="mb-4">
-    <p-iconfield class="w-full">
-      <p-inputicon class="pi pi-search" />
-      <input
-        type="text"
-        pInputText
-        placeholder="Buscar por nombre, email o teléfono..."
-        [(ngModel)]="filter"
-        class="w-full rounded"
-      />
-    </p-iconfield>
-  </div>
+  <div class="pt-4">
+    <p-table [value]="filtered()" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }" class="">
+      <ng-template pTemplate="caption">
+        <div class="w-full mb-4 flex flex-row justify-content-between">
+          <p-iconfield class="col-4">
+            <p-inputicon class="pi pi-search" />
+            <input
+              type="text"
+              pInputText
+              placeholder="Buscar por nombre, email o teléfono..."
+              [(ngModel)]="filter"
+              class="w-full rounded"
+            />
+          </p-iconfield>
 
-  <div class="users-table">
-    <p-table [value]="filtered()" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }">
+          <p-button
+            icon="pi pi-refresh"
+            [loading]="isLoading()"
+            rounded
+            raised
+            (click)="getUsers()"
+          ></p-button>
+        </div>
+      </ng-template>
       <ng-template pTemplate="header">
         <tr>
           <th>Fav</th>
@@ -60,13 +68,13 @@
                 pButton
                 pRipple
                 type="button"
-                icon="pi pi-pencil"
-                (click)="showUserDialog(user)"
+                [icon]="authService.hasRole(['manager']) ? 'pi pi-pencil' : 'pi pi-eye'"
+                (click)="showUserDialog(user, authService.hasRole(['manager']))"
                 text
                 rounded
                 severity="secondary"
               ></button>
-
+              @if(authService.hasRole(['manager'])){
               <button
                 pButton
                 pRipple
@@ -77,6 +85,7 @@
                 rounded
                 severity="secondary"
               ></button>
+              }
             </div>
           </td>
         </tr>
@@ -90,4 +99,5 @@
   [user]="selectedUser()"
   (save)="saveUser($event)"
   (close)="closeDialog()"
+  [editable]="editableUser()"
 ></app-user-dialog>

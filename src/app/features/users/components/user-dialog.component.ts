@@ -30,7 +30,7 @@ import { User } from '../../../core/models';
 export class UserDialogComponent implements OnChanges {
   @Input() visible = false;
   @Input() user: User | null = null;
-
+  @Input() editable = true;
   @Output() save = new EventEmitter<User>();
   @Output() close = new EventEmitter<void>();
 
@@ -56,9 +56,7 @@ export class UserDialogComponent implements OnChanges {
   }
 
   ngOnChanges(): void {
-    if (this.user) {
-      this.form.reset(this.user);
-    }
+    this.form.reset(this.user);
   }
 
   onSave() {
@@ -67,6 +65,10 @@ export class UserDialogComponent implements OnChanges {
         ...this.user,
         ...this.form.value,
       };
+
+      if (!user.id) {
+        user.id = Date.now();
+      }
 
       this.save.emit(user);
     } else {
