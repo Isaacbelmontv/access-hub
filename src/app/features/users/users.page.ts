@@ -15,6 +15,7 @@ import { StorageService } from '../../core/storage/storage.service';
 import { PhoneMaskPipe } from '../../shared/pipes/phone-mask-pipe';
 import { UserDialogComponent } from './components/user-dialog.component';
 import { FloatLabelModule } from 'primeng/floatlabel';
+import { AuthService } from '../../core/auth/auth.service';
 @Component({
   selector: 'app-users',
   imports: [
@@ -44,10 +45,10 @@ export class UsersPage {
   filter = '';
   favs = signal<number[]>(JSON.parse(this.storage.get('favs', []) || '[]'));
   selectedUser = signal<User | null>(null);
-  editableUser = signal<User | null>(null);
   showDialog = signal(false);
+  editableUser = signal(true);
 
-  constructor() {
+  constructor(public authService: AuthService) {
     this.getUsers();
     effect(() => this.storage.set('favs', JSON.stringify(this.favs())));
   }
@@ -74,9 +75,10 @@ export class UsersPage {
     });
   }
 
-  showUserDialog(user?: User) {
+  showUserDialog(user?: User, editable = true) {
     if (user) this.selectedUser.set(JSON.parse(JSON.stringify(user)));
     this.showDialog.set(true);
+    this.editableUser.set(editable);
   }
 
   saveUser(user: User) {

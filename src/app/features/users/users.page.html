@@ -68,13 +68,13 @@
                 pButton
                 pRipple
                 type="button"
-                icon="pi pi-pencil"
-                (click)="showUserDialog(user)"
+                [icon]="authService.hasRole(['manager']) ? 'pi pi-pencil' : 'pi pi-eye'"
+                (click)="showUserDialog(user, authService.hasRole(['manager']))"
                 text
                 rounded
                 severity="secondary"
               ></button>
-
+              @if(authService.hasRole(['manager'])){
               <button
                 pButton
                 pRipple
@@ -85,6 +85,7 @@
                 rounded
                 severity="secondary"
               ></button>
+              }
             </div>
           </td>
         </tr>
@@ -98,4 +99,5 @@
   [user]="selectedUser()"
   (save)="saveUser($event)"
   (close)="closeDialog()"
+  [editable]="editableUser()"
 ></app-user-dialog>

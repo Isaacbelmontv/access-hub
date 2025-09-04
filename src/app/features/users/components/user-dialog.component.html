@@ -1,5 +1,5 @@
 <p-dialog
-  [header]="user ? 'Editar Usuario' : 'Crear Nuevo Usuario'"
+  [header]="!user ? 'Crear Nuevo Usuario' : editable ? 'Editar Usuario' : 'Detalle Usuario'"
   [(visible)]="visible"
   [modal]="true"
   [style]="{ width: '45rem' }"
@@ -8,11 +8,9 @@
   (onHide)="onClose()"
 >
   <div class="mb-3 text-500">
-    {{
-      user
-        ? 'Actualiza los datos del usuario.'
-        : 'Completa los datos para crear un nuevo usuario en el sistema.'
-    }}
+    @if (!user) { Completa los datos para crear un nuevo usuario en el sistema. } @else {
+    {{ editable ? 'Actualiza los datos del usuario.' : 'Ver detalle del usuario.' }}
+    }
   </div>
 
   <form [formGroup]="form" class="p-fluid">
@@ -21,7 +19,14 @@
         <p-floatLabel>
           <p-iconField>
             <p-inputIcon class="pi pi-user" />
-            <input pInputText id="name" type="text" formControlName="name" class="w-full" />
+            <input
+              pInputText
+              id="name"
+              type="text"
+              formControlName="name"
+              class="w-full"
+              [readonly]="!editable"
+            />
           </p-iconField>
           <label for="name">Nombre</label>
         </p-floatLabel>
@@ -34,7 +39,14 @@
         <p-floatLabel>
           <p-iconField>
             <p-inputIcon class="pi pi-envelope" />
-            <input pInputText id="email" type="email" formControlName="email" class="w-full" />
+            <input
+              pInputText
+              id="email"
+              type="email"
+              formControlName="email"
+              class="w-full"
+              [readonly]="!editable"
+            />
           </p-iconField>
           <label for="email">Email</label>
         </p-floatLabel>
@@ -54,6 +66,7 @@
               formControlName="phone"
               class="w-full"
               maxlength="21"
+              [readonly]="!editable"
             />
           </p-iconField>
           <label for="phone">Teléfono</label>
@@ -67,7 +80,14 @@
         <p-floatLabel>
           <p-iconField>
             <p-inputIcon class="pi pi-globe" />
-            <input pInputText id="website" type="text" formControlName="website" class="w-full" />
+            <input
+              pInputText
+              id="website"
+              type="text"
+              formControlName="website"
+              class="w-full"
+              [readonly]="!editable"
+            />
           </p-iconField>
           <label for="website">Website</label>
         </p-floatLabel>
@@ -83,7 +103,13 @@
           <p-floatLabel>
             <p-iconField>
               <p-inputIcon class="pi pi-briefcase" />
-              <input pInputText id="companyName" formControlName="name" class="w-full" />
+              <input
+                pInputText
+                id="companyName"
+                formControlName="name"
+                class="w-full"
+                [readonly]="!editable"
+              />
             </p-iconField>
             <label for="companyName">Nombre</label>
           </p-floatLabel>
@@ -96,7 +122,13 @@
           <p-floatLabel>
             <p-iconField>
               <p-inputIcon class="pi pi-tags" />
-              <input pInputText id="bs" formControlName="bs" class="w-full" />
+              <input
+                pInputText
+                id="bs"
+                formControlName="bs"
+                class="w-full"
+                [readonly]="!editable"
+              />
             </p-iconField>
             <label for="bs">Sector</label>
           </p-floatLabel>
@@ -109,7 +141,13 @@
           <p-floatLabel>
             <p-iconField>
               <p-inputIcon class="pi pi-comment" />
-              <input pInputText id="catchPhrase" formControlName="catchPhrase" class="w-full" />
+              <input
+                pInputText
+                id="catchPhrase"
+                formControlName="catchPhrase"
+                class="w-full"
+                [readonly]="!editable"
+              />
             </p-iconField>
             <label for="catchPhrase">Eslogan</label>
           </p-floatLabel>
@@ -128,7 +166,13 @@
             <p-floatLabel>
               <p-iconField>
                 <p-inputIcon class="pi pi-map-marker" />
-                <input pInputText id="street" formControlName="street" class="w-full" />
+                <input
+                  pInputText
+                  id="street"
+                  formControlName="street"
+                  class="w-full"
+                  [readonly]="!editable"
+                />
               </p-iconField>
               <label for="street">Calle</label>
             </p-floatLabel>
@@ -142,7 +186,13 @@
             <p-floatLabel>
               <p-iconField>
                 <p-inputIcon class="pi pi-building" />
-                <input pInputText id="city" formControlName="city" class="w-full" />
+                <input
+                  pInputText
+                  id="city"
+                  formControlName="city"
+                  class="w-full"
+                  [readonly]="!editable"
+                />
               </p-iconField>
               <label for="city">Ciudad</label>
             </p-floatLabel>
@@ -156,7 +206,13 @@
             <p-floatLabel>
               <p-iconField>
                 <p-inputIcon class="pi pi-hashtag" />
-                <input pInputText id="zipcode" formControlName="zipcode" class="w-full" />
+                <input
+                  pInputText
+                  id="zipcode"
+                  formControlName="zipcode"
+                  class="w-full"
+                  [readonly]="!editable"
+                />
               </p-iconField>
               <label for="zipcode">Código Postal</label>
             </p-floatLabel>
@@ -171,7 +227,7 @@
 
     <div class="flex justify-content-end gap-2 mt-4">
       <p-button
-        label="Cancelar"
+        [label]="editable ? 'Cancelar' : 'Cerrar'"
         (click)="onClose()"
         severity="secondary"
         outlined
@@ -179,6 +235,7 @@
         iconPos="left"
       ></p-button>
 
+      @if(editable){
       <p-button
         [disabled]="form.invalid"
         label="Guardar"
@@ -187,6 +244,7 @@
         icon="pi pi-check"
         iconPos="left"
       ></p-button>
+      }
     </div>
   </form>
 </p-dialog>
