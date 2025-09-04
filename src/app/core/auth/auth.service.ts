@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
-import { AuthUser, Role } from '../models';
-import { StorageService } from '../storage/storage.service';
+import { AuthUser, Role } from '@core/models';
+import { StorageService } from '@core/storage/storage.service';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private _user = signal<AuthUser | null>(null);

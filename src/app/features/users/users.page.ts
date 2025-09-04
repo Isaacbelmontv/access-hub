@@ -10,11 +10,11 @@ import { InputIconModule } from 'primeng/inputicon';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
-import { ApiService } from '../../core/api/api.service';
-import { AuthService } from '../../core/auth/auth.service';
-import { User } from '../../core/models';
-import { StorageService } from '../../core/storage/storage.service';
-import { PhoneMaskPipe } from '../../shared/pipes/phone-mask-pipe';
+import { ApiService } from '@core/api/api.service';
+import { AuthService } from '@core/auth/auth.service';
+import { User } from '@core/models';
+import { StorageService } from '@core/storage/storage.service';
+import { PhoneMaskPipe } from '@shared/pipes/phone-mask-pipe';
 import { UserDialogComponent } from './components/user-dialog.component';
 @Component({
   selector: 'app-users',
