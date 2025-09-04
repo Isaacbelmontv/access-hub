@@ -14,6 +14,7 @@ import { User } from '../../core/models';
 import { StorageService } from '../../core/storage/storage.service';
 import { PhoneMaskPipe } from '../../shared/pipes/phone-mask-pipe';
 import { UserDialogComponent } from './components/user-dialog.component';
+import { FloatLabelModule } from 'primeng/floatlabel';
 @Component({
   selector: 'app-users',
   imports: [
@@ -29,6 +30,8 @@ import { UserDialogComponent } from './components/user-dialog.component';
     DialogModule,
     PhoneMaskPipe,
     UserDialogComponent,
+    CommonModule,
+    FloatLabelModule,
   ],
   templateUrl: './users.page.html',
   styleUrls: ['./users.page.css'],
@@ -71,13 +74,25 @@ export class UsersPage {
     });
   }
 
-  showUserDialog(user: User) {
-    this.selectedUser.set(JSON.parse(JSON.stringify(user)));
+  showUserDialog(user?: User) {
+    if (user) this.selectedUser.set(JSON.parse(JSON.stringify(user)));
     this.showDialog.set(true);
   }
 
   saveUser(user: User) {
-    this.users.set(this.users().map((u) => (u.id === user.id ? user : u)));
+    const exists = this.users().some((u) => u.id === user.id);
+
+    if (exists) {
+      this.users.set(this.users().map((u) => (u.id === user.id ? user : u)));
+    } else {
+      this.users.set([...this.users(), user]);
+
+      const localRaw = this.storage.get('local_users', []);
+      const local = localRaw ? JSON.parse(localRaw) : [];
+      local.push(user);
+      this.storage.set('local_users', JSON.stringify(local));
+    }
+
     this.closeDialog();
   }
 
@@ -88,6 +103,12 @@ export class UsersPage {
 
   deleteUser(user: User) {
     this.users.set(this.users().filter((u) => u.id !== user.id));
+
+    const localRaw = this.storage.get('local_users', []);
+    const local = localRaw ? JSON.parse(localRaw) : [];
+
+    const updatedLocal = local.filter((u: User) => u.id !== user.id);
+    this.storage.set('local_users', JSON.stringify(updatedLocal));
   }
 
   isFav = (id: number) => this.favs().includes(id);

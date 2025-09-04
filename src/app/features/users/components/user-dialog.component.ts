@@ -56,9 +56,7 @@ export class UserDialogComponent implements OnChanges {
   }
 
   ngOnChanges(): void {
-    if (this.user) {
-      this.form.reset(this.user);
-    }
+    this.form.reset(this.user);
   }
 
   onSave() {
@@ -67,6 +65,12 @@ export class UserDialogComponent implements OnChanges {
         ...this.user,
         ...this.form.value,
       };
+
+      if (!user.id) {
+        user.id = Date.now();
+      }
+
+      console.log(user);
 
       this.save.emit(user);
     } else {

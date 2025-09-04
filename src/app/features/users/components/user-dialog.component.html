@@ -1,5 +1,5 @@
 <p-dialog
-  header="Editar Usuario"
+  [header]="user ? 'Editar Usuario' : 'Crear Nuevo Usuario'"
   [(visible)]="visible"
   [modal]="true"
   [style]="{ width: '45rem' }"
@@ -7,8 +7,16 @@
   [dismissableMask]="true"
   (onHide)="onClose()"
 >
+  <div class="mb-3 text-500">
+    {{
+      user
+        ? 'Actualiza los datos del usuario.'
+        : 'Completa los datos para crear un nuevo usuario en el sistema.'
+    }}
+  </div>
+
   <form [formGroup]="form" class="p-fluid">
-    <div class="formgrid grid mt-4">
+    <div class="formgrid grid mt-6">
       <div class="field col-6">
         <p-floatLabel>
           <p-iconField>
