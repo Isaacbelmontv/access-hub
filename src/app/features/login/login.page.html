@@ -1,36 +1,57 @@
-<p-card header="Iniciar Sesión" styleClass="w-full md:w-30rem mx-auto mt-8 shadow-3">
-  <form (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
-    <span class="p-input-icon-left">
-      <i class="pi pi-user"></i>
-      <input
-        pInputText
-        [(ngModel)]="username"
-        name="username"
-        placeholder="Usuario"
-        required
-        class="w-full"
-      />
-    </span>
+<div class="flex justify-content-center align-items-center min-h-screen surface-ground p-4">
+  <p-card styleClass="w-full sm:w-20rem md:w-25rem lg:w-30rem shadow-3">
+    <div class="flex flex-column align-items-center mb-3">
+      <div
+        class="flex align-items-center justify-content-center bg-primary border-circle w-5rem h-5rem mb-3 shadow-2"
+      >
+        <i class="pi pi-user text-3xl text-white"></i>
+      </div>
+      <h2 class="m-0 text-xl font-semibold">Iniciar Sesión</h2>
+    </div>
 
-    <span class="p-input-icon-left">
-      <i class="pi pi-lock"></i>
-      <input
-        pPassword
-        [(ngModel)]="password"
-        name="password"
-        placeholder="Contraseña"
-        required
-        toggleMask="true"
-        feedback="false"
-        class="w-full"
-      />
-    </span>
+    <form (ngSubmit)="onSubmit()" class="flex flex-column gap-4 mt-3">
+      <!-- Usuario -->
+      <span class="p-input-icon-left w-full">
+        <i class="pi pi-user"></i>
+        <input
+          pInputText
+          [(ngModel)]="username"
+          name="username"
+          placeholder="Usuario"
+          required
+          class="w-full"
+        />
+      </span>
 
-    <button pButton type="submit" label="Entrar" icon="pi pi-sign-in"></button>
+      <!-- Contraseña -->
+      <span class="p-input-icon-left w-full">
+        <i class="pi pi-lock"></i>
+        <p-password
+          [(ngModel)]="password"
+          name="password"
+          placeholder="Contraseña"
+          required
+          toggleMask="true"
+          feedback="false"
+          class="w-full"
+          [inputStyleClass]="'w-full'"
+        ></p-password>
+      </span>
 
-    <p *ngIf="error()" class="text-red-600 text-center">
-      <i class="pi pi-exclamation-triangle mr-2"></i>
-      Credenciales inválidas
-    </p>
-  </form>
-</p-card>
+      <!-- Error -->
+      @if(error()){
+      <p
+        class="text-center text-red-500 font-medium flex align-items-center justify-content-center gap-2"
+      >
+        <i class="pi pi-exclamation-triangle"></i>
+        Credenciales inválidas
+      </p>
+      }
+
+      <!-- Botón -->
+      <div class="flex justify-content-end">
+        <p-button type="submit" label="Entrar" icon="pi pi-sign-in"></p-button>
+      </div>
+    </form>
+  </p-card>
+</div>

@@ -6,14 +6,6 @@
 
   --font-sans: 'Geist Sans', sans-serif;
   --font-mono: 'Geist Mono', monospace;
-
-  /* Colors */
-  --bg: #f6f7f9;
-  --surface: #ffffff;
-  --text: #0f172a;
-  --muted: #64748b;
-  --border: #e5e7eb;
-  --brand: #2563eb;
 }
 
 html,
