@@ -71,7 +71,7 @@
 
     <p-fieldset legend="Compañía" formGroupName="company" class="mt-3">
       <div class="formgrid grid">
-        <div class="field col-12 mt-3">
+        <div class="field col-6 mt-3">
           <p-floatLabel>
             <p-iconField>
               <p-inputIcon class="pi pi-briefcase" />
@@ -84,7 +84,20 @@
           }
         </div>
 
-        <div class="field col-8 my-3">
+        <div class="field col-6 my-3">
+          <p-floatLabel>
+            <p-iconField>
+              <p-inputIcon class="pi pi-tags" />
+              <input pInputText id="bs" formControlName="bs" class="w-full" />
+            </p-iconField>
+            <label for="bs">Sector</label>
+          </p-floatLabel>
+          @if(form.get('company.bs')?.touched && form.get('company.bs')?.hasError('required')){
+          <small class="p-error"> El campo es requerido</small>
+          }
+        </div>
+
+        <div class="field col-12 my-3">
           <p-floatLabel>
             <p-iconField>
               <p-inputIcon class="pi pi-comment" />
@@ -97,40 +110,13 @@
           <small class="p-error"> El campo es requerido</small>
           }
         </div>
-
-        <div class="field col-4 my-3">
-          <p-floatLabel>
-            <p-iconField>
-              <p-inputIcon class="pi pi-tags" />
-              <input pInputText id="bs" formControlName="bs" class="w-full" />
-            </p-iconField>
-            <label for="bs">Sector</label>
-          </p-floatLabel>
-          @if(form.get('company.bs')?.touched && form.get('company.bs')?.hasError('required')){
-          <small class="p-error"> El campo es requerido</small>
-          }
-        </div>
       </div>
     </p-fieldset>
 
     <div class="mt-3">
       <p-fieldset legend="Dirección" formGroupName="address">
         <div class="formgrid grid">
-          <div class="field col-12 mt-3">
-            <p-floatLabel>
-              <p-iconField>
-                <p-inputIcon class="pi pi-building" />
-                <input pInputText id="city" formControlName="city" class="w-full" />
-              </p-iconField>
-              <label for="city">Ciudad</label>
-            </p-floatLabel>
-            @if(form.get('address.city')?.touched &&
-            form.get('address.city')?.hasError('required')){
-            <small class="p-error"> El campo es requerido</small>
-            }
-          </div>
-
-          <div class="field col-8 my-3">
+          <div class="field col-12 my-3">
             <p-floatLabel>
               <p-iconField>
                 <p-inputIcon class="pi pi-map-marker" />
@@ -144,7 +130,21 @@
             }
           </div>
 
-          <div class="field col-4 my-3">
+          <div class="field col-6 mt-3">
+            <p-floatLabel>
+              <p-iconField>
+                <p-inputIcon class="pi pi-building" />
+                <input pInputText id="city" formControlName="city" class="w-full" />
+              </p-iconField>
+              <label for="city">Ciudad</label>
+            </p-floatLabel>
+            @if(form.get('address.city')?.touched &&
+            form.get('address.city')?.hasError('required')){
+            <small class="p-error"> El campo es requerido</small>
+            }
+          </div>
+
+          <div class="field col-6 my-3">
             <p-floatLabel>
               <p-iconField>
                 <p-inputIcon class="pi pi-hashtag" />
