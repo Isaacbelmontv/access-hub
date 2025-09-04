@@ -5,7 +5,7 @@ import { AuthService } from './auth.service';
 export const canActivateAuth: CanActivateFn = () => {
   const auth = inject(AuthService),
     router = inject(Router);
-  if (!auth.user()) {
+  if (!auth.getUser()) {
     router.navigateByUrl('/login');
     return false;
   }
