@@ -11,8 +11,21 @@
     </div>
   </ng-template>
 
+  @if(filtered().length === 0 && !isLoading() && !filter) {
+  <div class="flex flex-column align-items-center justify-content-center pt-6">
+    <i class="pi pi-info-circle text-4xl text-color-secondary mb-3"></i>
+    <h2 class="text-2xl font-bold mb-2">No se encontraron usuarios</h2>
+    <p class="text-color-secondary">Intenta ajustar el filtro de búsqueda</p>
+  </div>
+  } @else {
+
   <div class="pt-4">
-    <p-table [value]="filtered()" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }" class="">
+    <p-table
+      [value]="filtered()"
+      dataKey="id"
+      [tableStyle]="{ 'min-width': '50rem' }"
+      [loading]="isLoading()"
+    >
       <ng-template pTemplate="caption">
         <div class="w-full mb-4 flex flex-row justify-content-between">
           <p-iconfield class="col-4">
@@ -35,6 +48,7 @@
           ></p-button>
         </div>
       </ng-template>
+
       <ng-template pTemplate="header">
         <tr>
           <th>Fav</th>
@@ -56,12 +70,10 @@
               ></i>
             </p-button>
           </td>
-
           <td>{{ user.name }}</td>
           <td>{{ user.email }}</td>
           <td>{{ user.phone | phoneMask }}</td>
           <td>{{ user.website }}</td>
-
           <td>
             <div class="flex items-center justify-center gap-2">
               <button
@@ -74,7 +86,7 @@
                 rounded
                 severity="secondary"
               ></button>
-              @if(authService.hasRole(['manager'])){
+              @if(authService.hasRole(['manager'])) {
               <button
                 pButton
                 pRipple
@@ -92,6 +104,7 @@
       </ng-template>
     </p-table>
   </div>
+  }
 </p-card>
 
 <app-user-dialog

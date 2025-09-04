@@ -4,18 +4,18 @@ import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { Card } from 'primeng/card';
 import { DialogModule } from 'primeng/dialog';
+import { FloatLabelModule } from 'primeng/floatlabel';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
 import { ApiService } from '../../core/api/api.service';
+import { AuthService } from '../../core/auth/auth.service';
 import { User } from '../../core/models';
 import { StorageService } from '../../core/storage/storage.service';
 import { PhoneMaskPipe } from '../../shared/pipes/phone-mask-pipe';
 import { UserDialogComponent } from './components/user-dialog.component';
-import { FloatLabelModule } from 'primeng/floatlabel';
-import { AuthService } from '../../core/auth/auth.service';
 @Component({
   selector: 'app-users',
   imports: [
