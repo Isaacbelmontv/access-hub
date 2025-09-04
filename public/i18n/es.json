@@ -1,0 +1,9 @@
+{
+  "LOGIN": {
+    "TITLE": "Iniciar Sesión",
+    "USER": "Usuario",
+    "PASSWORD": "Contrasena",
+    "CREDENTIALS": "Credenciales inválidas",
+    "ENTER_BUTTON": "Entrar"
+  }
+}
