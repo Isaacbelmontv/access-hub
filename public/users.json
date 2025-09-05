@@ -14,13 +14,5 @@
     "email": "drodriguez@grupobimbo.com",
     "password": "124!*",
     "role": "coordinator"
-  },
-  {
-    "id": 2,
-    "name": "Daniela Rodriguez",
-    "username": "1",
-    "email": "drodriguez@grupobimbo.com",
-    "password": "1",
-    "role": "manager"
   }
 ]

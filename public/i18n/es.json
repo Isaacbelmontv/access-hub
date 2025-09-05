@@ -1,4 +1,9 @@
 {
+  "HEADER": {
+    "DASHBOARD": "Dashboard",
+    "ACCOUNT": "Mi cuenta",
+    "LOGOUT": "Cerrar sesión"
+  },
   "LOGIN": {
     "TITLE": "Iniciar Sesión",
     "USER": "Usuario",

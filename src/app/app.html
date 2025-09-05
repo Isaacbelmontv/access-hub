@@ -7,7 +7,7 @@
     <div class="flex align-items-center gap-3 min-w-0">
       <i class="pi pi-users text-xl"></i>
       <span class="text-xl font-semibold white-space-nowrap overflow-hidden text-overflow-ellipsis">
-        Dashboard
+        {{ 'HEADER.DASHBOARD' | translate }}
       </span>
     </div>
 
@@ -17,6 +17,16 @@
       </span>
 
       <p-badge severity="info" [value]="authService.user()?.role || ''" />
+
+      <select
+        [ngModel]="currentLang"
+        (ngModelChange)="switchLang($event)"
+        class="p-2 border-round border-1 surface-border text-sm hidden md:inline"
+      >
+        @for (l of langs; track l.code) {
+        <option [ngValue]="l.code">{{ l.flag }} {{ l.label }}</option>
+        }
+      </select>
 
       <div class="flex justify-content-center">
         <p-menu #menu [model]="items" [popup]="true"></p-menu>
