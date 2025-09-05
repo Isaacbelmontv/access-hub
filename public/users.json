@@ -14,21 +14,5 @@
     "email": "drodriguez@grupobimbo.com",
     "password": "124!*",
     "role": "coordinator"
-  },
-  {
-    "id": 3,
-    "name": "Juan Lopez",
-    "username": "i",
-    "email": "i",
-    "password": "i",
-    "role": "manager"
-  },
-  {
-    "id": 4,
-    "name": "Juan Lopez",
-    "username": "o",
-    "email": "o",
-    "password": "o",
-    "role": "coordinator"
   }
 ]
