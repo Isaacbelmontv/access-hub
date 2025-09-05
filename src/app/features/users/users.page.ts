@@ -1,6 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, effect, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ApiService } from '@core/api/api.service';
+import { AuthService } from '@core/auth/auth.service';
+import { User } from '@core/models';
+import { StorageService } from '@core/storage/storage.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { PhoneMaskPipe } from '@shared/pipes/phone-mask-pipe';
 import { ButtonModule } from 'primeng/button';
 import { Card } from 'primeng/card';
 import { DialogModule } from 'primeng/dialog';
@@ -10,11 +16,6 @@ import { InputIconModule } from 'primeng/inputicon';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
-import { ApiService } from '@core/api/api.service';
-import { AuthService } from '@core/auth/auth.service';
-import { User } from '@core/models';
-import { StorageService } from '@core/storage/storage.service';
-import { PhoneMaskPipe } from '@shared/pipes/phone-mask-pipe';
 import { UserDialogComponent } from './components/user-dialog.component';
 @Component({
   selector: 'app-users',
@@ -33,6 +34,7 @@ import { UserDialogComponent } from './components/user-dialog.component';
     UserDialogComponent,
     CommonModule,
     FloatLabelModule,
+    TranslateModule,
   ],
   templateUrl: './users.page.html',
   styleUrls: ['./users.page.css'],

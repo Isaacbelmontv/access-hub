@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { User } from '@core/models';
+import { TranslateModule } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { FieldsetModule } from 'primeng/fieldset';
@@ -8,7 +10,6 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
-import { User } from '@core/models';
 
 @Component({
   selector: 'app-user-dialog',
@@ -23,6 +24,7 @@ import { User } from '@core/models';
     IconFieldModule,
     InputIconModule,
     FieldsetModule,
+    TranslateModule,
   ],
   templateUrl: './user-dialog.component.html',
   styleUrl: './user-dialog.component.css',

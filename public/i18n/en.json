@@ -5,5 +5,56 @@
     "PASSWORD": "Password",
     "CREDENTIALS": "Invalid credentials",
     "ENTER_BUTTON": "Sign"
+  },
+  "USERS": {
+    "TITLE": "User Management",
+    "ADD_BUTTON": "Add User",
+    "EMPTY_MESSAGE": "No users found",
+    "SEARCH_PLACEHOLDER": "Search by name, email or phone...",
+    "TABLE": {
+      "FAV": "Fav",
+      "NAME": "Name",
+      "EMAIL": "Email",
+      "PHONE": "Phone",
+      "WEBSITE": "Website",
+      "ACTIONS": "Actions"
+    }
+  },
+  "USER_DIALOG": {
+    "HEADER": {
+      "CREATE": "Create New User",
+      "EDIT": "Edit User",
+      "DETAIL": "User Detail"
+    },
+    "DESCRIPTION": {
+      "CREATE": "Fill in the details to create a new user in the system.",
+      "EDIT": "Update the user's information.",
+      "DETAIL": "View user details."
+    },
+    "FIELDS": {
+      "NAME": "Name",
+      "EMAIL": "Email",
+      "PHONE": "Phone",
+      "WEBSITE": "Website",
+      "COMPANY": "Company",
+      "COMPANY_NAME": "Name",
+      "COMPANY_SECTOR": "Sector",
+      "COMPANY_SLOGAN": "Slogan",
+      "ADDRESS": "Address",
+      "STREET": "Street",
+      "CITY": "City",
+      "ZIPCODE": "Zip Code"
+    },
+    "ERRORS": {
+      "REQUIRED": "This field is required",
+      "NAME_REQUIRED": "Name is required",
+      "EMAIL_REQUIRED": "Email is required",
+      "PHONE_REQUIRED": "Phone is required"
+    },
+    "ACTIONS": {
+      "CANCEL": "Cancel",
+      "CLOSE": "Close",
+      "SAVE": "Save"
+    }
   }
 }
