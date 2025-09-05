@@ -5,7 +5,7 @@ import { ApiService } from '@core/api/api.service';
 import { AuthService } from '@core/auth/auth.service';
 import { User } from '@core/models';
 import { StorageService } from '@core/storage/storage.service';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { PhoneMaskPipe } from '@shared/pipes/phone-mask-pipe';
 import { ButtonModule } from 'primeng/button';
 import { Card } from 'primeng/card';
@@ -17,6 +17,11 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
 import { UserDialogComponent } from './components/user-dialog.component';
+import { Toast } from 'primeng/toast';
+import { Ripple } from 'primeng/ripple';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+
 @Component({
   selector: 'app-users',
   imports: [
@@ -35,9 +40,13 @@ import { UserDialogComponent } from './components/user-dialog.component';
     CommonModule,
     FloatLabelModule,
     TranslateModule,
+    Toast,
+    Ripple,
+    ToastModule,
   ],
   templateUrl: './users.page.html',
   styleUrls: ['./users.page.css'],
+  providers: [MessageService],
 })
 export class UsersPage {
   api = inject(ApiService);
@@ -50,7 +59,11 @@ export class UsersPage {
   showDialog = signal(false);
   editableUser = signal(true);
 
-  constructor(public authService: AuthService) {
+  constructor(
+    public authService: AuthService,
+    private messageService: MessageService,
+    private translate: TranslateService
+  ) {
     this.getUsers();
     effect(() => this.storage.set('favs', JSON.stringify(this.favs())));
   }
@@ -96,6 +109,11 @@ export class UsersPage {
       local.push(user);
       this.storage.set('local_users', JSON.stringify(local));
     }
+    this.messageService.add({
+      severity: 'success',
+      detail: this.translate.instant('USERS.SAVED'),
+      life: 3000,
+    });
 
     this.closeDialog();
   }
@@ -113,6 +131,12 @@ export class UsersPage {
 
     const updatedLocal = local.filter((u: User) => u.id !== user.id);
     this.storage.set('local_users', JSON.stringify(updatedLocal));
+
+    this.messageService.add({
+      severity: 'error',
+      detail: this.translate.instant('USERS.DELETED'),
+      life: 3000,
+    });
   }
 
   isFav = (id: number) => this.favs().includes(id);

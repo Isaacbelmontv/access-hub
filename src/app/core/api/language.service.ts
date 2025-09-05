@@ -12,8 +12,12 @@ export class LanguageService {
   currentLang = signal<string>('es');
 
   constructor(private translate: TranslateService, private storage: StorageService) {
+    this.initLang();
+  }
+
+  initLang() {
     const saved = this.storage.get('lang');
-    const initLang = saved || this.translate.defaultLang || 'es';
+    const initLang = saved || 'es';
 
     this.translate.use(initLang);
     this.currentLang.set(initLang);

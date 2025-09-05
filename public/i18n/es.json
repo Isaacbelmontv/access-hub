@@ -16,6 +16,8 @@
     "ADD_BUTTON": "Agregar Usuario",
     "EMPTY_MESSAGE": "No se encontraron usuarios",
     "SEARCH_PLACEHOLDER": "Buscar por nombre, email o teléfono...",
+    "SAVED": "Usuario guardado",
+    "DELETED": "Usuario eliminado",
     "TABLE": {
       "FAV": "Fav",
       "NAME": "Nombre",
