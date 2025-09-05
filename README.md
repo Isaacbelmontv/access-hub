@@ -43,12 +43,12 @@ Usuario 1 - manager
 
 ```
 username: jLopez
-password: 123!\*
+password: 123!*
 ```
 
 Usuario 2 - coordinator
 
 ```
 username: dRodriguez
-password: 124!\*
+password: 124!*
 ```
