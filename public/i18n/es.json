@@ -5,5 +5,56 @@
     "PASSWORD": "Contrasena",
     "CREDENTIALS": "Credenciales inválidas",
     "ENTER_BUTTON": "Entrar"
+  },
+  "USERS": {
+    "TITLE": "Gestión de Usuarios",
+    "ADD_BUTTON": "Agregar Usuario",
+    "EMPTY_MESSAGE": "No se encontraron usuarios",
+    "SEARCH_PLACEHOLDER": "Buscar por nombre, email o teléfono...",
+    "TABLE": {
+      "FAV": "Fav",
+      "NAME": "Nombre",
+      "EMAIL": "Email",
+      "PHONE": "Teléfono",
+      "WEBSITE": "Website",
+      "ACTIONS": "Acciones"
+    }
+  },
+  "USER_DIALOG": {
+    "HEADER": {
+      "CREATE": "Crear Nuevo Usuario",
+      "EDIT": "Editar Usuario",
+      "DETAIL": "Detalle Usuario"
+    },
+    "DESCRIPTION": {
+      "CREATE": "Completa los datos para crear un nuevo usuario en el sistema.",
+      "EDIT": "Actualiza los datos del usuario.",
+      "DETAIL": "Ver detalle del usuario."
+    },
+    "FIELDS": {
+      "NAME": "Nombre",
+      "EMAIL": "Email",
+      "PHONE": "Teléfono",
+      "WEBSITE": "Website",
+      "COMPANY": "Compañía",
+      "COMPANY_NAME": "Nombre",
+      "COMPANY_SECTOR": "Sector",
+      "COMPANY_SLOGAN": "Eslogan",
+      "ADDRESS": "Dirección",
+      "STREET": "Calle",
+      "CITY": "Ciudad",
+      "ZIPCODE": "Código Postal"
+    },
+    "ERRORS": {
+      "REQUIRED": "El campo es requerido",
+      "NAME_REQUIRED": "El nombre es requerido",
+      "EMAIL_REQUIRED": "El email es requerido",
+      "PHONE_REQUIRED": "El teléfono es requerido"
+    },
+    "ACTIONS": {
+      "CANCEL": "Cancelar",
+      "CLOSE": "Cerrar",
+      "SAVE": "Guardar"
+    }
   }
 }
