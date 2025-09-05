@@ -12,8 +12,8 @@
     </div>
 
     <div class="flex align-items-center gap-3 min-w-0">
-      <span class="hidden md:inline text-color-secondary font-medium truncate max-w-10rem">
-        {{ authService.user()?.username }}
+      <span class="hidden md:inline text-color-secondary font-medium truncate max-w-10rem mr-2">
+        {{ authService.user()?.email }}
       </span>
 
       <p-badge severity="info" [value]="authService.user()?.role || ''" />
