@@ -30,6 +30,7 @@ export const appConfig: ApplicationConfig = {
     }),
     provideHttpClient(withFetch()),
     provideTranslateService({
+      defaultLanguage: 'es',
       lang: 'es',
       fallbackLang: 'en',
       loader: provideTranslateHttpLoader({

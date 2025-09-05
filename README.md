@@ -8,7 +8,6 @@ AccessHub es una aplicación desarrollada para manejo de usuarios.
 
 - [Node.js](https://nodejs.org/) >= 20.x
 - [Angular CLI](https://angular.dev/tools/cli) >= 20.x
-- [Git](https://git-scm.com/)
 
 ---
 
