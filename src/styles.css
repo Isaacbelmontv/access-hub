@@ -1,1 +1,16 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Geist+Sans:wght@400;500;700&family=Geist+Mono:wght@400;500&display=swap');
+
+:root {
+  --p-font-family: var(--font-sans, 'Geist Sans', sans-serif);
+  --p-font-family-monospace: var(--font-mono, 'Geist Mono', monospace);
+
+  --font-sans: 'Geist Sans', sans-serif;
+  --font-mono: 'Geist Mono', monospace;
+}
+
+html,
+body {
+  font-family: var(--p-font-family);
+  margin: 0;
+  padding: 0;
+}

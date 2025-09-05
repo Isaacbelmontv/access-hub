@@ -1,0 +1,122 @@
+<p-card>
+  <ng-template pTemplate="title">
+    <div
+      class="flex flex-column md:flex-row justify-content-between align-items-start md:align-items-left w-full font-bold gap-3"
+    >
+      <span class="text-2xl md:text-3xl w-full md:w-auto md:text-left"> Gestión de Usuarios </span>
+      <p-button
+        label="Agregar Usuario"
+        icon="pi pi-plus"
+        (click)="showUserDialog()"
+        raised
+        class="w-full md:w-auto"
+      ></p-button>
+    </div>
+  </ng-template>
+
+  @if(filtered().length === 0 && !isLoading() && !filter) {
+  <div class="flex flex-column align-items-center justify-content-center pt-6">
+    <i class="pi pi-info-circle text-4xl text-color-secondary mb-3"></i>
+    <h2 class="text-2xl font-bold mb-2">No se encontraron usuarios</h2>
+  </div>
+  } @else {
+
+  <div class="pt-4">
+    <p-table
+      [value]="filtered()"
+      dataKey="id"
+      [tableStyle]="{ 'min-width': '50rem' }"
+      [loading]="isLoading()"
+    >
+      <ng-template pTemplate="caption">
+        <div
+          class="w-full mb-4 flex flex-column md:flex-row gap-3 align-items-center justify-content-between"
+        >
+          <p-iconfield class="col-12 md:col-4">
+            <p-inputicon class="pi pi-search" />
+            <input
+              type="text"
+              pInputText
+              placeholder="Buscar por nombre, email o teléfono..."
+              [(ngModel)]="filter"
+              class="w-full rounded"
+            />
+          </p-iconfield>
+
+          <div class="flex justify-content-end w-full md:w-auto">
+            <p-button
+              icon="pi pi-refresh"
+              [loading]="isLoading()"
+              rounded
+              raised
+              (click)="getUsers()"
+            ></p-button>
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Fav</th>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Teléfono</th>
+          <th>Website</th>
+          <th>Acciones</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-user>
+        <tr>
+          <td>
+            <p-button variant="text" severity="warn" (click)="toggleFav(user.id)">
+              <i
+                [ngClass]="isFav(user.id) ? 'pi pi-star-fill' : 'pi pi-star'"
+                [style.color]="isFav(user.id) ? '#FACC15' : '#9CA3AF'"
+              ></i>
+            </p-button>
+          </td>
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.phone | phoneMask }}</td>
+          <td>{{ user.website }}</td>
+          <td>
+            <div class="flex items-center justify-center gap-2">
+              <button
+                pButton
+                pRipple
+                type="button"
+                [icon]="authService.hasRole(['manager']) ? 'pi pi-pencil' : 'pi pi-eye'"
+                (click)="showUserDialog(user, authService.hasRole(['manager']))"
+                text
+                rounded
+                severity="secondary"
+              ></button>
+              @if(authService.hasRole(['manager'])) {
+              <button
+                pButton
+                pRipple
+                type="button"
+                icon="pi pi-trash"
+                (click)="deleteUser(user)"
+                text
+                rounded
+                severity="secondary"
+              ></button>
+              }
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  }
+</p-card>
+
+<app-user-dialog
+  [visible]="showDialog()"
+  [user]="selectedUser()"
+  (save)="saveUser($event)"
+  (close)="closeDialog()"
+  [editable]="editableUser()"
+></app-user-dialog>

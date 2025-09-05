@@ -1,0 +1,9 @@
+{
+  "LOGIN": {
+    "TITLE": "Sign In",
+    "USER": "User",
+    "PASSWORD": "Password",
+    "CREDENTIALS": "Invalid credentials",
+    "ENTER_BUTTON": "Sign"
+  }
+}

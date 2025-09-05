@@ -1,33 +1,37 @@
+import { provideHttpClient, withFetch } from '@angular/common/http';
 import {
   ApplicationConfig,
   provideBrowserGlobalErrorListeners,
   provideZonelessChangeDetection,
-  inject,
 } from '@angular/core';
-import { provideRouter } from '@angular/router';
-import { providePrimeNG } from 'primeng/config';
-import Aura from '@primeuix/themes/aura';
-import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
-import { provideTranslateService, TranslateService } from '@ngx-translate/core';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { provideRouter } from '@angular/router';
+import { provideTranslateService } from '@ngx-translate/core';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
-import { provideHttpClient } from '@angular/common/http';
+import Nora from '@primeng/themes/nora';
+import { providePrimeNG } from 'primeng/config';
+import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideRouter(routes),
+    provideNoopAnimations(), // TODO: replace with provideAnimations()
     provideClientHydration(withEventReplay()),
     providePrimeNG({
       theme: {
-        preset: Aura,
+        preset: Nora,
+        options: {
+          darkModeSelector: false,
+        },
       },
     }),
-    provideHttpClient(),
+    provideHttpClient(withFetch()),
     provideTranslateService({
       lang: 'es',
-      fallbackLang: 'es',
+      fallbackLang: 'en',
       loader: provideTranslateHttpLoader({
         prefix: '/i18n/',
         suffix: '.json',

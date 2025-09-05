@@ -1,1 +1,37 @@
-<router-outlet />
+@if (authService.isInitialized()) {
+<div class="flex flex-column min-h-screen surface-ground text-900">
+  @if (hasLogin()) {
+  <header
+    class="flex align-items-center justify-content-between px-4 surface-card border-bottom-1 surface-border top-0 z-5 h-4rem"
+  >
+    <div class="flex align-items-center gap-3 min-w-0">
+      <i class="pi pi-users text-xl"></i>
+      <span class="text-xl font-semibold white-space-nowrap overflow-hidden text-overflow-ellipsis">
+        Dashboard
+      </span>
+    </div>
+
+    <div class="flex align-items-center gap-3 min-w-0">
+      <span class="hidden md:inline text-color-secondary font-medium truncate max-w-10rem">
+        {{ authService.user()?.username }}
+      </span>
+
+      <p-badge severity="info" [value]="authService.user()?.role || ''" />
+
+      <div class="flex justify-content-center">
+        <p-menu #menu [model]="items" [popup]="true"></p-menu>
+        <p-button icon="pi pi-user" [rounded]="true" (click)="menu.toggle($event)" />
+      </div>
+    </div>
+  </header>
+  }
+
+  <main class="flex-1 p-4">
+    <div class="mx-auto w-full max-w-screen-xl">
+      <router-outlet />
+    </div>
+  </main>
+</div>
+} @else {
+<app-splashscreen />
+}
