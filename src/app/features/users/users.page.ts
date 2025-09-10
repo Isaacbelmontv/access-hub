@@ -77,6 +77,8 @@ export class UsersPage {
     this.favs.set([...s]);
   }
 
+  isFav = (id: number) => this.favs().includes(id);
+
   getUsers() {
     this.isLoading.set(true);
     this.api.getUsers().subscribe({
@@ -98,14 +100,15 @@ export class UsersPage {
 
   saveUser(user: User) {
     const exists = this.users().some((u) => u.id === user.id);
+    const localRaw = this.storage.get('local_users');
+    const local: User[] = localRaw ? JSON.parse(localRaw) : [];
 
     if (exists) {
       this.users.set(this.users().map((u) => (u.id === user.id ? user : u)));
+      const updatedLocal = local.map((u) => (u.id === user.id ? { ...u, ...user } : u));
+      this.storage.set('local_users', JSON.stringify(updatedLocal));
     } else {
       this.users.set([...this.users(), user]);
-
-      const localRaw = this.storage.get('local_users');
-      const local = localRaw ? JSON.parse(localRaw) : [];
       local.push(user);
       this.storage.set('local_users', JSON.stringify(local));
     }
@@ -138,6 +141,4 @@ export class UsersPage {
       life: 3000,
     });
   }
-
-  isFav = (id: number) => this.favs().includes(id);
 }
