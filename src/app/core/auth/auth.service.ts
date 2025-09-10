@@ -16,17 +16,13 @@ export class AuthService {
     this.storageService.set('auth_user', JSON.stringify(user));
   }
 
-  user() {
+  user(): AuthUser | null {
     return this._user();
   }
 
   logout() {
     this._user.set(null);
     this.storageService.remove('auth_user');
-  }
-
-  getUser(): AuthUser | null {
-    return this._user();
   }
 
   isLoggedIn(): boolean {
@@ -42,8 +38,6 @@ export class AuthService {
     const raw = this.storageService.get('auth_user');
     if (raw) {
       this._user.set(JSON.parse(raw));
-    } else {
-      this.initialized.set(true);
     }
 
     setTimeout(() => {
